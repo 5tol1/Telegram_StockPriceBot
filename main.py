@@ -29,7 +29,7 @@ with daemon.DaemonContext():
         bot.reply_to(message.chat.id, "Hello")
         
     @bot.message_handler(commands=['Indices', 'indices'])
-    def send_dax(message):
+    def send_indices(message):
         #request = message.text.split()[1].lower()
         reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in ticker.items())
         bot.reply_to(message, reply_text)
@@ -41,25 +41,25 @@ with daemon.DaemonContext():
         bot.reply_to(message, reply_text)
     
     @bot.message_handler(commands=['Mdax', 'mdax'])
-    def send_dax(message):
+    def send_mdax(message):
         #request = message.text.split()[1].lower()
         reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in mdax.items())
         bot.reply_to(message, reply_text)
     
     @bot.message_handler(commands=['Tecdax', 'tecdax'])
-    def send_dax(message):
+    def send_tecdax(message):
         #request = message.text.split()[1].lower()
         reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in tecdax.items())
         bot.reply_to(message, reply_text)
     
     @bot.message_handler(commands=['Sdax', 'sdax'])
-    def send_dax(message):
+    def send_sdax(message):
         #request = message.text.split()[1].lower()
         reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in sdax.items())
         bot.reply_to(message, reply_text)
     
     @bot.message_handler(commands=['Dowjones', 'dowjones'])
-    def send_dax(message):
+    def send_dowjones(message):
         #request = message.text.split()[1].lower()
         reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in dowjones.items())
         bot.reply_to(message, reply_text)
