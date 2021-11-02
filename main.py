@@ -125,6 +125,42 @@ with daemon.DaemonContext():
             bot.reply_to(message, reply_text)
         else:
             bot.reply_to(message, "No Data!!")
+            
+    
+    def stock_mdax(message):
+        request = message.text.split()
+        if len(request) < 2 or request[0].lower() not in 'mdax':
+            return False
+        else:
+            return True
+
+
+    @bot.message_handler(func=stock_mdax)
+    def send_mdax(message):
+        request = message.text.split()[1].lower()
+        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in mdax.items())
+        if reply_text:
+            bot.reply_to(message, reply_text)
+        else:
+            bot.reply_to(message, "No Data!!")
+            
+     
+    def stock_sdax(message):
+        request = message.text.split()
+        if len(request) < 2 or request[0].lower() not in 'sdax':
+            return False
+        else:
+            return True
+
+
+    @bot.message_handler(func=stock_sdax)
+    def send_sdax(message):
+        request = message.text.split()[1].lower()
+        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in sdax.items())
+        if reply_text:
+            bot.reply_to(message, reply_text)
+        else:
+            bot.reply_to(message, "No Data!!")
 
 
     def stock_dow(message):
