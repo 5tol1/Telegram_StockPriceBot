@@ -27,6 +27,42 @@ with daemon.DaemonContext():
     @bot.message_handler(commands=['Hello', 'hello'])
     def hello(message):
         bot.reply_to(message.chat.id, "Hello")
+        
+    @bot.message_handler(commands=['Indices', 'indices'])
+    def send_dax(message):
+        #request = message.text.split()[1].lower()
+        reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in ticker.items())
+        bot.reply_to(message, reply_text)
+
+    @bot.message_handler(commands=['Dax', 'dax'])
+    def send_dax(message):
+        #request = message.text.split()[1].lower()
+        reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in dax.items())
+        bot.reply_to(message, reply_text)
+    
+    @bot.message_handler(commands=['Mdax', 'mdax'])
+    def send_dax(message):
+        #request = message.text.split()[1].lower()
+        reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in mdax.items())
+        bot.reply_to(message, reply_text)
+    
+    @bot.message_handler(commands=['Tecdax', 'tecdax'])
+    def send_dax(message):
+        #request = message.text.split()[1].lower()
+        reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in tecdax.items())
+        bot.reply_to(message, reply_text)
+    
+    @bot.message_handler(commands=['Sdax', 'sdax'])
+    def send_dax(message):
+        #request = message.text.split()[1].lower()
+        reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in sdax.items())
+        bot.reply_to(message, reply_text)
+    
+    @bot.message_handler(commands=['Dowjones', 'dowjones'])
+    def send_dax(message):
+        #request = message.text.split()[1].lower()
+        reply_text =  "\n".join(' =  '.join((key, val)) for (key, val) in dowjones.items())
+        bot.reply_to(message, reply_text)
 
 
     def stock_volume(message):
@@ -73,114 +109,7 @@ with daemon.DaemonContext():
             bot.reply_to(message, "No Data!!")
 
 
-    def stock_indices(message):
-        request = message.text.split()
-        if len(request) < 2 or request[0].lower() not in 'indices':
-            return False
-        else:
-            return True
-
-
-    @bot.message_handler(func=stock_indices)
-    def send_indices(message):
-        request = message.text.split()[1].lower()
-        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in ticker.items())
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        else:
-            bot.reply_to(message, "No Data!!")
-
-
-    def stock_dax(message):
-        request = message.text.split()
-        if len(request) < 2 or request[0].lower() not in 'dax':
-            return False
-        else:
-            return True
-
-
-    @bot.message_handler(func=stock_dax)
-    def send_dax(message):
-        request = message.text.split()[1].lower()
-        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in dax.items())
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        else:
-            bot.reply_to(message, "No Data!!")
-
-
-    def stock_tecdax(message):
-        request = message.text.split()
-        if len(request) < 2 or request[0].lower() not in 'tecdax':
-            return False
-        else:
-            return True
-
-
-    @bot.message_handler(func=stock_tecdax)
-    def send_tecdax(message):
-        request = message.text.split()[1].lower()
-        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in tecdax.items())
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        else:
-            bot.reply_to(message, "No Data!!")
-            
-    
-    def stock_mdax(message):
-        request = message.text.split()
-        if len(request) < 2 or request[0].lower() not in 'mdax':
-            return False
-        else:
-            return True
-
-
-    @bot.message_handler(func=stock_mdax)
-    def send_mdax(message):
-        request = message.text.split()[1].lower()
-        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in mdax.items())
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        else:
-            bot.reply_to(message, "No Data!!")
-            
-     
-    def stock_sdax(message):
-        request = message.text.split()
-        if len(request) < 2 or request[0].lower() not in 'sdax':
-            return False
-        else:
-            return True
-
-
-    @bot.message_handler(func=stock_sdax)
-    def send_sdax(message):
-        request = message.text.split()[1].lower()
-        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in sdax.items())
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        else:
-            bot.reply_to(message, "No Data!!")
-
-
-    def stock_dow(message):
-        request = message.text.split()
-        if len(request) < 2 or request[0].lower() not in 'dow':
-            return False
-        else:
-            return True
-
-
-    @bot.message_handler(func=stock_dow)
-    def send_dow(message):
-        request = message.text.split()[1].lower()
-        reply_text = "\n".join(' =  '.join((key, val)) for (key, val) in dowjones.items())
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        else:
-            bot.reply_to(message, "No Data!!")
-
-
+   
     def stock_custom(message):
         request = message.text.split()
         if len(request) < 2 or request[0].lower() not in 'ticker':
