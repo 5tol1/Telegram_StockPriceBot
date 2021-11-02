@@ -110,7 +110,7 @@ with daemon.DaemonContext():
 
 
    
-    def stock_custom(message):
+    def stock_ticker(message):
         request = message.text.split()
         if len(request) < 2 or request[0].lower() not in 'ticker':
             return False
@@ -118,15 +118,29 @@ with daemon.DaemonContext():
             return True
 
 
-    @bot.message_handler(func=stock_custom)
+    @bot.message_handler(func=stock_ticker)
     def custom_reply(message):
         request = message.text.split()[1].lower()
         reply_text = CUSTOM_REPLIES.get(request)
+        dax_text = dax.get(request)
+        tecdax_text = tecdax.get(request)
+        sdax_text = sdax.get(request)
+        mdax_text = mdax.get(request)
+        dowjones_text = dowjones.get(request)
         if reply_text:
             bot.reply_to(message, reply_text)
+        elif dax_text:
+            bot.reply_to(message, dax_text)
+        elif tecdax_text:
+            bot.reply_to(message, tecdax_text)
+        elif sdax_text:
+            bot.reply_to(message, sdax_text)
+        elif mdax_text:
+            bot.reply_to(message, mdax_text)
+        elif dowjones_text:
+            bot.reply_to(message, dowjones_text)
         else:
             bot.reply_to(message, "No Data!!")
-
 
     def stock_get(message):
         request = message.text.split()
