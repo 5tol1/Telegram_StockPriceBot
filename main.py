@@ -320,7 +320,3 @@ with daemon.DaemonContext():
     bot.infinity_polling()
 
 
-#main()
-
-# with daemon.DaemonContext():
-#    main()
