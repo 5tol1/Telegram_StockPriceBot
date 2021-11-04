@@ -117,16 +117,13 @@ with daemon.DaemonContext():
     @bot.message_handler(commands=['Ticker', 'ticker'])
     def custom_reply(message):
         request = message.text.split()[1].lower()
-        reply_text = CUSTOM_REPLIES.get(request)
         dax_text = dax.get(request)
         tecdax_text = tecdax.get(request)
         sdax_text = sdax.get(request)
         mdax_text = mdax.get(request)
         dowjones_text = dowjones.get(request)
         nasdaq100_text = nasdaq100.get(request)
-        if reply_text:
-            bot.reply_to(message, reply_text)
-        elif dax_text:
+        if dax_text:
             bot.reply_to(message, dax_text)
         elif tecdax_text:
             bot.reply_to(message, tecdax_text)
@@ -193,7 +190,7 @@ with daemon.DaemonContext():
         plt.figure(figsize=(12, 8))
         ax1 = plt.subplot(211)
         ax1.plot(combined.index, combined['Adj Close'], color='lightgray')
-        ax1.set_title("Adjusted Close Price", color='white')
+        ax1.set_title("Adjusted Close Price", color='black')
 
         ax1.grid(True, color='#555555')
         ax1.set_axisbelow(True)
