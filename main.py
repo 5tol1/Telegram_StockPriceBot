@@ -1,5 +1,6 @@
 import telebot
 from settings import *
+from description import *
 import yfinance as yf
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
@@ -13,30 +14,27 @@ import pandas_datareader as web
 import io
 
 
+print("Bot started...")
+
 with daemon.DaemonContext():
     bot = telebot.TeleBot(BOT_TOKEN)
 
 
     @bot.message_handler(commands=['Help', 'help'])
     def help(message):
-        bot.send_message(message.chat.id, '/Price "ticker" to get the Price from the last 10 minutes. ' + "\n" + "\n" +
-                         '/Volume "ticker" to get the Volume from the last 10 minutes.' + "\n" + "\n" +
-                         '/Ticker and the name of the company to get the ticker symbol. sample: united_internet' + "\n" + "\n" +
-                         '/Get "ticker" to see the current Price from yahoo finance. ' + "\n" + "\n" +
-                         '/Rsi "ticker" for RSI Indicator.' + "\n" + "\n" +
-                         '/Macd "ticker" for MACD indicator.' + "\n" + "\n" +
-                         '/Sma "ticker" for SMA 20/50/100/200 Indicator.' + "\n" + "\n" +
-                         '/Indices - shows a list of Indices' + "\n" + "\n" +
-                         '/Dax - shows a list of all DAX stocks' + "\n" + "\n" +
-                         '/Tecdax - shows a list of all TECDAX stocks' + "\n" + "\n" +
-                         '/Sdax - shows a list of all SDAX stocks' + "\n" + "\n" +
-                         '/Mdax - shows a list of all MDAX stocks' + "\n" + "\n" +
-                         '/Dowjones - shows a list of all Dow Jones stocks' + "\n" + "\n" +
-                         '/Nasdaq100 - shows a list of all NASDAQ 100 stocks' + "\n" + "\n")
+        if message.chat.type == "private" or "group":
+            if message.chat.username == None:
+                answer = f"Hello {message.from_user.first_name}, you can use the commands below"
+                bot.send_message(message.chat.id, answer + "\n" + "\n" + description)
+            else:
+                answer = f"Hello {message.from_user.username}, you can use the commands below"
+                bot.send_message(message.chat.id, answer + "\n" + "\n" + description)
+
 
     @bot.message_handler(commands=['Hello', 'hello'])
     def hello(message):
-        bot.send_message(message.chat.id, "Hello")
+        answer = f"Hello {message.chat.username}"
+        bot.send_message(message.chat.id, answer)
 
 
     @bot.message_handler(commands=['Indices', 'indices'])
@@ -117,13 +115,16 @@ with daemon.DaemonContext():
     @bot.message_handler(commands=['Ticker', 'ticker'])
     def custom_reply(message):
         request = message.text.split()[1].lower()
+        reply_text = CUSTOM_REPLIES.get(request)
         dax_text = dax.get(request)
         tecdax_text = tecdax.get(request)
         sdax_text = sdax.get(request)
         mdax_text = mdax.get(request)
         dowjones_text = dowjones.get(request)
         nasdaq100_text = nasdaq100.get(request)
-        if dax_text:
+        if reply_text:
+            bot.reply_to(message, reply_text)
+        elif dax_text:
             bot.reply_to(message, dax_text)
         elif tecdax_text:
             bot.reply_to(message, tecdax_text)
@@ -304,3 +305,4 @@ with daemon.DaemonContext():
 
 
     bot.infinity_polling()
+
