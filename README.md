@@ -1,5 +1,5 @@
 # Telegram_StockPriceBot
-![bot](https://user-images.githubusercontent.com/72672441/140492403-528143ba-0a24-4b63-a58b-650218b93250.PNG)
+<img width="295" alt="bot" src="https://user-images.githubusercontent.com/72672441/140498138-b5d37bb8-f751-41da-bdd5-d09e26abfb89.PNG">
 
 /help
 
