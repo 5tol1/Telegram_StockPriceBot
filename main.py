@@ -341,56 +341,56 @@ with daemon.DaemonContext():
 
     @bot.message_handler(content_types=['text'])
     def get_text(message):
-        if message.text == 'BTC-USD':
+        if message.text.lower() == 'BTC-USD':
             ticker = 'BTC-USD'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'BTC-EUR':
+        elif message.text.lower() == 'BTC-EUR':
             ticker = 'BTC-EUR'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'ETH-USD':
+        elif message.text.lower() == 'ETH-USD':
             ticker = 'ETH-USD'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'ETH-EUR':
+        elif message.text.lower() == 'ETH-EUR':
             ticker = 'ETH-EUR'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'DOGE-USD':
+        elif message.text.lower() == 'DOGE-USD':
             ticker = 'DOGE-USD'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'DOGE-EUR':
+        elif message.text.lower() == 'DOGE-EUR':
             ticker = 'DOGE-EUR'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'XRP-USD':
+        elif message.text.lower() == 'XRP-USD':
             ticker = 'XRP-USD'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
             data = web.DataReader(ticker, 'yahoo', start, end)
             price = data.iloc[-1]['Close']
             bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
-        elif message.text == 'XRP-EUR':
+        elif message.text.lower() == 'XRP-EUR':
             ticker = 'XRP-EUR'
             start = dt.datetime.now() - dt.timedelta(days=365)
             end = dt.datetime.now()
