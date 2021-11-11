@@ -299,6 +299,104 @@ with daemon.DaemonContext():
         im = Image.open(buf)
         plt.draw()
         bot.send_photo(message.chat.id, im)
+        
+    @bot.message_handler(commands=['Crypto', 'crypto'])
+    def get_crypto(message):
+        markup_inline = types.InlineKeyboardMarkup()
+        item_BTC = types.InlineKeyboardButton(text='BTC', callback_data='BTC')
+        item_ETH = types.InlineKeyboardButton(text='ETH', callback_data='ETH')
+        item_DOGE = types.InlineKeyboardButton(text='DOGE', callback_data='DOGE')
+        item_XRP = types.InlineKeyboardButton(text='XRP', callback_data='XRP')
+        markup_inline.add(item_BTC, item_ETH, item_DOGE, item_XRP)
+        bot.send_message(message.chat.id, 'Choose a button to see the current Price', reply_markup=markup_inline)
+
+
+    @bot.callback_query_handler(func=lambda call: True)
+    def answer(call):
+        if call.data == 'BTC':
+            markup_reply = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+            BTC_USD = types.InlineKeyboardButton('BTC-USD')
+            BTC_EUR = types.InlineKeyboardButton('BTC-EUR')
+            markup_reply.add(BTC_USD, BTC_EUR)
+            bot.send_message(call.message.chat.id, 'Choose a currency', reply_markup=markup_reply)
+        elif call.data == 'ETH':
+            markup_reply = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+            ETH_USD = types.InlineKeyboardButton('ETH-USD')
+            ETH_EUR = types.InlineKeyboardButton('ETH-EUR')
+            markup_reply.add(ETH_USD, ETH_EUR)
+            bot.send_message(call.message.chat.id, 'Choose a currency', reply_markup=markup_reply)
+        elif call.data == 'DOGE':
+            markup_reply = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+            DOGE_USD = types.InlineKeyboardButton('DOGE-USD')
+            DOGE_EUR = types.InlineKeyboardButton('DOGE-EUR')
+            markup_reply.add(DOGE_USD, DOGE_EUR)
+            bot.send_message(call.message.chat.id, 'Choose a currency', reply_markup=markup_reply)
+        elif call.data == 'XRP':
+            markup_reply = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+            XRP_USD = types.InlineKeyboardButton('XRP-USD')
+            XRP_EUR = types.InlineKeyboardButton('XRP-EUR')
+            markup_reply.add(XRP_USD, XRP_EUR)
+            bot.send_message(call.message.chat.id, 'Choose a currency', reply_markup=markup_reply)
+
+
+    @bot.message_handler(content_types=['text'])
+    def get_text(message):
+        if message.text == 'BTC-USD':
+            ticker = 'BTC-USD'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'BTC-EUR':
+            ticker = 'BTC-EUR'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'ETH-USD':
+            ticker = 'ETH-USD'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'ETH-EUR':
+            ticker = 'ETH-EUR'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'DOGE-USD':
+            ticker = 'DOGE-USD'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'DOGE-EUR':
+            ticker = 'DOGE-EUR'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'XRP-USD':
+            ticker = 'XRP-USD'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} $', reply_markup=types.ReplyKeyboardRemove())
+        elif message.text == 'XRP-EUR':
+            ticker = 'XRP-EUR'
+            start = dt.datetime.now() - dt.timedelta(days=365)
+            end = dt.datetime.now()
+            data = web.DataReader(ticker, 'yahoo', start, end)
+            price = data.iloc[-1]['Close']
+            bot.send_message(message.chat.id, f'The current Price of {ticker} is {price} €', reply_markup=types.ReplyKeyboardRemove())
 
 
     bot.infinity_polling()
